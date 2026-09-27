@@ -147,7 +147,7 @@ export const en: Messages = {
   "onboarding.privacy.point2":
     "This tool runs entirely in your browser to decode and generate QR codes.",
   "onboarding.privacy.point3":
-    "No third-party analytics scripts are required for core features.",
+    "Anonymous usage stats (downloads, shares) help us improve the tool. QR data never leaves your browser.",
   "onboarding.privacy.done": "Got it",
 
   // rating
@@ -167,7 +167,7 @@ export const en: Messages = {
   "rating.toast.submitFail.title": "Couldn't send rating",
   "rating.toast.feedbackFail.title": "Couldn't send feedback",
   "rating.toast.webhookMissing":
-    "Rating webhook isn't configured. Check NEXT_PUBLIC_DISCORD_RATING_WEBHOOK_URL.",
+    "Ratings aren't available right now. Try again in a moment.",
   "rating.toast.retry": "Try again in a moment.",
 
   // about

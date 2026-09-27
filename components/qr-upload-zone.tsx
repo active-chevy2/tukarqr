@@ -38,6 +38,7 @@ export interface UploadItem {
   status: FileUploadStatus;
   progress: number;
   error?: string;
+  source?: "upload" | "camera";
 }
 
 interface QrUploadZoneProps {
@@ -45,7 +46,7 @@ interface QrUploadZoneProps {
   cameraInputRef: React.RefObject<HTMLInputElement | null>;
   activeTab: string;
   onTabChange: (value: string) => void;
-  onFilesSelect: (files: File[]) => void;
+  onFilesSelect: (files: File[], source?: "upload" | "camera") => void;
   onDragOver: (e: React.DragEvent) => void;
   items: UploadItem[];
   onReset: () => void;
@@ -422,7 +423,7 @@ export function QrUploadZone({
                 className="hidden"
                 onChange={(e) => {
                   const file = e.target.files?.[0];
-                  if (file) onFilesSelect([file]);
+                  if (file) onFilesSelect([file], "camera");
                   e.target.value = "";
                 }}
               />

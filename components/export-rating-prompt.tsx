@@ -17,6 +17,7 @@ import {
 } from "@/lib/export-rating";
 import { cn } from "@/lib/utils";
 import { shareApp } from "@/lib/share-app";
+import { trackAppShare, trackRatingSubmit } from "@/lib/analytics";
 import { useT } from "@/lib/i18n";
 
 function getRatingSubmitErrorMessage(
@@ -84,6 +85,7 @@ export function ExportRatingPrompt({
     setSubmitted(true);
     try {
       await submitRatingToDiscord(value);
+      trackRatingSubmit({ value, hasFeedback: false });
       saveRating(value);
     } catch (error) {
       setSubmitted(false);
@@ -105,6 +107,7 @@ export function ExportRatingPrompt({
     setIsSubmitting(true);
     try {
       await submitRatingToDiscord(rating, feedback);
+      trackRatingSubmit({ value: rating, hasFeedback: true });
       saveRating(rating);
       setSubmitted(true);
     } catch (error) {
@@ -118,7 +121,8 @@ export function ExportRatingPrompt({
 
   async function handleShare() {
     try {
-      await shareApp();
+      const method = await shareApp();
+      trackAppShare({ method });
       onClose();
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") return;

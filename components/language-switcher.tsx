@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { trackLocaleChange } from "@/lib/analytics";
 import { useLocale } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 
@@ -22,7 +23,10 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
       type="button"
       variant="ghost"
       aria-label={t("nav.language.ariaLabel")}
-      onClick={() => setLocale(nextLocale)}
+      onClick={() => {
+        setLocale(nextLocale);
+        trackLocaleChange(nextLocale);
+      }}
       className={className}
     >
       {t(LABEL_KEY[locale])}

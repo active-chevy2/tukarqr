@@ -24,6 +24,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useT } from "@/lib/i18n";
+import { trackMcpCopy } from "@/lib/analytics";
 
 const MCP_ENDPOINT = "https://mcp.tukarqr.my/mcp";
 const MCP_GITHUB_README =
@@ -145,10 +146,15 @@ export function McpContent() {
   const [copiedPromptId, setCopiedPromptId] = useState<string | null>(null);
   const [openPrompts, setOpenPrompts] = useState<string[]>([]);
 
-  async function copyText(text: string, setCopied: (value: boolean) => void) {
+  async function copyText(
+    text: string,
+    setCopied: (value: boolean) => void,
+    target: "endpoint" | "install"
+  ) {
     try {
       await navigator.clipboard.writeText(text);
       setCopied(true);
+      trackMcpCopy(target);
       window.setTimeout(() => setCopied(false), 2000);
     } catch {
       setCopied(false);
@@ -159,6 +165,7 @@ export function McpContent() {
     try {
       await navigator.clipboard.writeText(text);
       setCopiedPromptId(id);
+      trackMcpCopy("prompt");
       window.setTimeout(() => setCopiedPromptId(null), 2000);
     } catch {
       setCopiedPromptId(null);
@@ -195,7 +202,7 @@ export function McpContent() {
               variant="secondary"
               size="sm"
               className="shrink-0"
-              onClick={() => copyText(MCP_ENDPOINT, setEndpointCopied)}
+              onClick={() => copyText(MCP_ENDPOINT, setEndpointCopied, "endpoint")}
             >
               <Icon icon={Copy01Icon} size={14} className="size-3.5" />
               {endpointCopied
@@ -274,7 +281,7 @@ export function McpContent() {
               type="button"
               variant="secondary"
               size="sm"
-              onClick={() => copyText(INSTALL_JSON, setInstallCopied)}
+              onClick={() => copyText(INSTALL_JSON, setInstallCopied, "install")}
             >
               <Icon icon={Copy01Icon} size={14} className="size-3.5" />
               {installCopied

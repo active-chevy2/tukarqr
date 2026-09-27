@@ -37,6 +37,7 @@ import { HowToStart } from "@/components/onboarding/how-to-start";
 import { PrivacyPolicy } from "@/components/onboarding/privacy-policy";
 import { ExportRatingPrompt, type RatingContentPhase } from "@/components/export-rating-prompt";
 import { hasSubmittedRating } from "@/lib/export-rating";
+import { trackQrDecode, trackQrDecodeFail } from "@/lib/analytics";
 import {
   QrUploadZone,
   type UploadItem,
@@ -82,12 +83,16 @@ const CONCURRENCY_LIMIT_DESKTOP = 2;
 const CONCURRENCY_LIMIT_MOBILE = 1;
 const YIELD_BETWEEN_CHUNKS_MS = 16;
 
-function createItem(file: File): UploadItem & { payload?: string } {
+function createItem(
+  file: File,
+  source: "upload" | "camera" = "upload"
+): UploadItem & { payload?: string } {
   return {
     id: `${file.name}-${Date.now()}-${Math.random().toString(36).slice(2)}`,
     file,
     status: "pending",
     progress: 0,
+    source,
   };
 }
 
@@ -655,7 +660,10 @@ export function QrApp() {
         return results;
       }
 
-      let successCount = 0;
+      let uploadSuccess = 0;
+      let cameraSuccess = 0;
+      let uploadFail = 0;
+      let cameraFail = 0;
       let nextPreload: Promise<{ img: HTMLImageElement; url: string }[] | null> =
         pending.length > concurrency
           ? preloadChunk(
@@ -684,7 +692,7 @@ export function QrApp() {
           chunk.map((item, j) =>
             processSingleFile(
               item,
-              false,
+              item.source === "camera",
               signal,
               canvasPool[j] ?? undefined,
               toUse?.[j],
@@ -695,13 +703,35 @@ export function QrApp() {
         if (toUse) {
           toUse.forEach((p) => URL.revokeObjectURL(p.url));
         }
-        successCount += outcomes.filter(Boolean).length;
+        outcomes.forEach((ok, index) => {
+          const isCamera = chunk[index]?.source === "camera";
+          if (ok) {
+            if (isCamera) cameraSuccess += 1;
+            else uploadSuccess += 1;
+            return;
+          }
+          if (isCamera) cameraFail += 1;
+          else uploadFail += 1;
+        });
         await new Promise<void>((resolve) =>
           setTimeout(resolve, YIELD_BETWEEN_CHUNKS_MS)
         );
       }
 
       processingRef.current = false;
+      const successCount = uploadSuccess + cameraSuccess;
+      if (uploadSuccess > 0) {
+        trackQrDecode({ count: uploadSuccess, source: "upload" });
+      }
+      if (cameraSuccess > 0) {
+        trackQrDecode({ count: cameraSuccess, source: "camera" });
+      }
+      if (uploadFail > 0) {
+        trackQrDecodeFail({ count: uploadFail, source: "upload" });
+      }
+      if (cameraFail > 0) {
+        trackQrDecodeFail({ count: cameraFail, source: "camera" });
+      }
       if (successCount > 0) {
         toast.success(t("upload.toast.decodeSuccess", { n: successCount }));
       }
@@ -716,7 +746,10 @@ export function QrApp() {
     }
   }, [results, processQueue]);
 
-  function handleFilesSelect(files: File[]) {
+  function handleFilesSelect(
+    files: File[],
+    source: "upload" | "camera" = "upload"
+  ) {
     if (!files.length) return;
 
     const validFiles = files.filter((f) => {
@@ -740,7 +773,7 @@ export function QrApp() {
 
     const toAdd = validFiles
       .slice(0, MAX_BATCH_SIZE - results.length)
-      .map(createItem);
+      .map((file) => createItem(file, source));
 
     if (validFiles.length > MAX_BATCH_SIZE) {
       toast.error(t("upload.toast.batchLimit", { n: MAX_BATCH_SIZE }));

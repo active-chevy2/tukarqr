@@ -150,7 +150,7 @@ export const ms: Messages = {
   "onboarding.privacy.point2":
     "Alat ini berjalan terus dalam pelayar anda untuk dekod dan penjanaan QR.",
   "onboarding.privacy.point3":
-    "Tiada skrip analitik pihak ketiga diperlukan untuk fungsi utama aplikasi ini.",
+    "Statistik penggunaan tanpa nama (muat turun, kongsi) membantu kami menambah baik alat ini. Data QR tidak pernah meninggalkan pelayar anda.",
   "onboarding.privacy.done": "Faham",
 
   // rating
@@ -171,7 +171,7 @@ export const ms: Messages = {
   "rating.toast.submitFail.title": "Gagal menghantar penilaian",
   "rating.toast.feedbackFail.title": "Gagal menghantar maklum balas",
   "rating.toast.webhookMissing":
-    "Webhook penilaian belum dikonfigurasi. Semak NEXT_PUBLIC_DISCORD_RATING_WEBHOOK_URL.",
+    "Penilaian tidak tersedia buat masa ini. Cuba lagi sebentar.",
   "rating.toast.retry": "Sila cuba lagi sebentar.",
 
   // about

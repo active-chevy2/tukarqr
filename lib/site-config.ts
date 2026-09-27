@@ -14,5 +14,5 @@ export const SITE_ICONS = {
   android512: "/android-chrome-512x512.png",
 } as const;
 
-export const DISCORD_RATING_WEBHOOK_URL =
-  process.env.NEXT_PUBLIC_DISCORD_RATING_WEBHOOK_URL ?? "";
+export const GA_MEASUREMENT_ID =
+  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-HNKBBJPS5M";

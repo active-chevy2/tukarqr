@@ -1,4 +1,4 @@
-import { DISCORD_RATING_WEBHOOK_URL } from "@/lib/site-config";
+import { buildRatingEmbedDescription } from "@/lib/rating-message";
 
 const RATING_SUBMITTED_KEY = "qrkita-rating-submitted";
 const RATING_VALUE_KEY = "qrkita-rating-value";
@@ -7,9 +7,7 @@ export const MIN_RATING_FEEDBACK_LENGTH = 10;
 export const RATING_WEBHOOK_NOT_CONFIGURED_ERROR =
   "RATING_WEBHOOK_NOT_CONFIGURED";
 
-export function isRatingWebhookConfigured(): boolean {
-  return DISCORD_RATING_WEBHOOK_URL.length > 0;
-}
+export { buildRatingEmbedDescription };
 
 export function hasSubmittedRating(): boolean {
   if (typeof window === "undefined") return false;
@@ -44,45 +42,37 @@ export function isValidRatingFeedback(feedback: string): boolean {
   return feedback.trim().length >= MIN_RATING_FEEDBACK_LENGTH;
 }
 
-export function buildRatingEmbedDescription(
-  value: number,
-  feedback?: string
-): string {
-  const lines = [`Pengguna memberi ${value}/5 bintang`];
-  if (feedback?.trim()) {
-    lines.push("", "Maklum balas:", feedback.trim());
-  }
-  return lines.join("\n");
-}
-
-function buildDiscordPayload(value: number, feedback?: string) {
-  return {
-    embeds: [
-      {
-        title: "Penilaian TukarQR",
-        description: buildRatingEmbedDescription(value, feedback),
-        color: 5814783,
-      },
-    ],
-  };
-}
-
 export async function submitRatingToDiscord(
   value: number,
   feedback?: string
 ): Promise<void> {
-  if (!DISCORD_RATING_WEBHOOK_URL) {
+  let response: Response;
+  try {
+    response = await fetch("/api/rating", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        value,
+        ...(feedback?.trim() ? { feedback: feedback.trim() } : {}),
+      }),
+    });
+  } catch {
     throw new Error(RATING_WEBHOOK_NOT_CONFIGURED_ERROR);
   }
 
-  // Discord webhooks block browser CORS preflight for application/json.
-  // Multipart FormData is a "simple" request and delivers without preflight.
-  const formData = new FormData();
-  formData.append("payload_json", JSON.stringify(buildDiscordPayload(value, feedback)));
+  if (response.status === 404 || response.status === 405) {
+    throw new Error(RATING_WEBHOOK_NOT_CONFIGURED_ERROR);
+  }
 
-  await fetch(DISCORD_RATING_WEBHOOK_URL, {
-    method: "POST",
-    body: formData,
-    mode: "no-cors",
-  });
+  const body = (await response.json().catch(() => null)) as {
+    ok?: boolean;
+    error?: string;
+  } | null;
+
+  if (!response.ok || !body?.ok) {
+    if (body?.error === "not_configured" || response.status === 503) {
+      throw new Error(RATING_WEBHOOK_NOT_CONFIGURED_ERROR);
+    }
+    throw new Error("RATING_SUBMIT_FAILED");
+  }
 }

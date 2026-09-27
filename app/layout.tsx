@@ -6,7 +6,12 @@ import { ThemeProvider } from "next-themes";
 import { ThemeKeyboardShortcut } from "@/components/theme-keyboard-shortcut";
 import { Toaster } from "@/components/ui/sonner";
 import { LocaleProvider } from "@/lib/i18n";
-import { SITE_URL, DEFAULT_OG_IMAGE, SITE_ICONS } from "@/lib/site-config";
+import {
+  SITE_URL,
+  DEFAULT_OG_IMAGE,
+  SITE_ICONS,
+  GA_MEASUREMENT_ID,
+} from "@/lib/site-config";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -97,8 +102,6 @@ const jsonLdWebSite = {
   inLanguage: "ms",
 };
 
-const GA_MEASUREMENT_ID = "G-PBGVPSN15D";
-
 const jsonLdWebApp = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
@@ -132,7 +135,7 @@ export default function RootLayout({
         <link rel="preload" href={SITE_ICONS.favicon} as="image" />
         <link rel="preload" href={SITE_ICONS.favicon32} as="image" />
         <link rel="preload" href={SITE_ICONS.appleTouch} as="image" />
-        {process.env.NODE_ENV === "production" && (
+        {process.env.NODE_ENV === "production" && GA_MEASUREMENT_ID ? (
           <>
             <Script
               async
@@ -144,11 +147,17 @@ export default function RootLayout({
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
+                gtag('consent', 'default', {
+                  analytics_storage: 'granted',
+                  ad_storage: 'denied',
+                  ad_user_data: 'denied',
+                  ad_personalization: 'denied'
+                });
                 gtag('config', '${GA_MEASUREMENT_ID}');
               `}
             </Script>
           </>
-        )}
+        ) : null}
       </head>
       <body
         className={`antialiased ${GeistSans.className}`}

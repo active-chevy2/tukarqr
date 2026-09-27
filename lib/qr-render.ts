@@ -1,6 +1,6 @@
 import JSZip from "jszip";
 import { toast } from "sonner";
-import { notifyExportToDiscord } from "@/lib/export-notify";
+import { trackQrDownload, trackQrExportFail } from "@/lib/analytics";
 import { t } from "@/lib/i18n";
 
 import {
@@ -310,6 +310,12 @@ export async function downloadAllQrsAsZip(
   const valid = items.filter((i) => i.svg);
   if (valid.length === 0) {
     toast.error(t("export.toast.nothingToDownload"));
+    trackQrExportFail({
+      action: "download",
+      exportSource: "bulk",
+      layout,
+      ratio,
+    });
     return false;
   }
 
@@ -354,6 +360,12 @@ export async function downloadAllQrsAsZip(
     const succeeded = results.filter((r) => r.status === "fulfilled" && r.value);
     if (succeeded.length === 0) {
       toast.error(t("export.toast.renderFail"));
+      trackQrExportFail({
+        action: "download",
+        exportSource: "bulk",
+        layout,
+        ratio,
+      });
       return false;
     }
 
@@ -366,11 +378,29 @@ export async function downloadAllQrsAsZip(
     const blob = await zip.generateAsync({ type: "blob" });
     const result = await exportZipBlob(blob, zipFilename, succeeded.length);
     if (result === "downloaded") {
-      void notifyExportToDiscord("save");
+      trackQrDownload({
+        exportSource: "bulk",
+        layout,
+        ratio,
+        fileCount: succeeded.length,
+      });
+    } else if (result !== "cancelled") {
+      trackQrExportFail({
+        action: "download",
+        exportSource: "bulk",
+        layout,
+        ratio,
+      });
     }
     return result === "downloaded";
   } catch {
     toast.error(t("export.toast.zipFail"));
+    trackQrExportFail({
+      action: "download",
+      exportSource: "bulk",
+      layout,
+      ratio,
+    });
     return false;
   }
 }

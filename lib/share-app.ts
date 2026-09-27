@@ -1,6 +1,7 @@
 import { toast } from "sonner";
 import { t } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site-config";
+import type { AppShareMethod } from "@/lib/analytics";
 
 function canUseNativeShare(data: ShareData): boolean {
   if (typeof navigator === "undefined" || typeof navigator.share !== "function") {
@@ -43,13 +44,13 @@ async function copyLinkToClipboard(): Promise<void> {
   }
 }
 
-export async function shareApp(): Promise<void> {
+export async function shareApp(): Promise<AppShareMethod> {
   for (const payload of getSharePayloads()) {
     if (!canUseNativeShare(payload)) continue;
 
     try {
       await navigator.share(payload);
-      return;
+      return "native";
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") {
         throw error;
@@ -59,4 +60,5 @@ export async function shareApp(): Promise<void> {
 
   await copyLinkToClipboard();
   toast.success(t("share.app.linkCopied"));
+  return "clipboard";
 }

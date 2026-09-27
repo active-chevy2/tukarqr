@@ -32,7 +32,9 @@ Next.js (App Router), React, TypeScript, Tailwind CSS 4, shadcn/ui, Framer Motio
 
 ## Privacy
 
-Nothing is uploaded to a server—QR work runs in your tab only.
+QR photos and payloads are processed in the browser. They are not uploaded to a server.
+
+Anonymous usage stats (decode, download, share) are sent to Google Analytics. A star rating, including optional written feedback which forwards it to Discord. The Discord webhook URL is not in the client bundle.
 
 ## MCP
 

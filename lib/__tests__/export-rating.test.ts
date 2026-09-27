@@ -7,10 +7,6 @@ import {
   submitRatingToDiscord,
 } from "../export-rating";
 
-vi.mock("@/lib/site-config", () => ({
-  DISCORD_RATING_WEBHOOK_URL: "https://discord.test/webhook",
-}));
-
 describe("needsRatingFeedback", () => {
   it("returns true for ratings 1 through 3", () => {
     expect(needsRatingFeedback(1)).toBe(true);
@@ -51,56 +47,48 @@ describe("submitRatingToDiscord", () => {
     vi.restoreAllMocks();
   });
 
-  it("posts multipart payload_json to avoid browser CORS preflight", async () => {
-    const fetchMock = vi.fn().mockResolvedValue({ ok: true, type: "opaque" });
+  it("posts the rating to the same-origin API", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ ok: true }),
+    });
     vi.stubGlobal("fetch", fetchMock);
 
     await submitRatingToDiscord(2, "QR lambat dimuat turun");
 
-    expect(fetchMock).toHaveBeenCalledTimes(1);
-
-    const [url, options] = fetchMock.mock.calls[0] as [
-      string,
-      { method: string; body: FormData; mode: string },
-    ];
-
-    expect(url).toBe("https://discord.test/webhook");
-    expect(options.method).toBe("POST");
-    expect(options.mode).toBe("no-cors");
-    expect(options.body).toBeInstanceOf(FormData);
-
-    const payload = JSON.parse(
-      (options.body as FormData).get("payload_json") as string
-    );
-
-    expect(payload).toEqual({
-      embeds: [
-        {
-          title: "Penilaian TukarQR",
-          description:
-            "Pengguna memberi 2/5 bintang\n\nMaklum balas:\nQR lambat dimuat turun",
-          color: 5814783,
-        },
-      ],
+    expect(fetchMock).toHaveBeenCalledWith("/api/rating", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        value: 2,
+        feedback: "QR lambat dimuat turun",
+      }),
     });
   });
 
-  it("throws when webhook url is empty", async () => {
-    vi.resetModules();
-    vi.doMock("@/lib/site-config", () => ({
-      DISCORD_RATING_WEBHOOK_URL: "",
-    }));
-
-    const fetchMock = vi.fn();
+  it("throws when the rating API is not configured", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 503,
+      json: async () => ({ ok: false, error: "not_configured" }),
+    });
     vi.stubGlobal("fetch", fetchMock);
 
-    const { submitRatingToDiscord: submitWithoutWebhook } = await import(
-      "../export-rating"
-    );
-
-    await expect(submitWithoutWebhook(4)).rejects.toThrow(
+    await expect(submitRatingToDiscord(4)).rejects.toThrow(
       RATING_WEBHOOK_NOT_CONFIGURED_ERROR
     );
-    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("throws when the rating API is missing in local dev", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 404,
+      json: async () => null,
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    await expect(submitRatingToDiscord(4)).rejects.toThrow(
+      RATING_WEBHOOK_NOT_CONFIGURED_ERROR
+    );
   });
 });
