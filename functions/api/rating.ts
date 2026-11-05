@@ -6,6 +6,7 @@ import {
 
 interface RatingEnv {
   DISCORD_RATING_WEBHOOK_URL?: string;
+  NEXT_PUBLIC_DISCORD_RATING_WEBHOOK_URL?: string;
 }
 
 function json(body: unknown, status = 200): Response {
@@ -24,7 +25,9 @@ export async function onRequestPost(context: {
     return json({ ok: false, error: "forbidden" }, 403);
   }
 
-  const webhook = context.env.DISCORD_RATING_WEBHOOK_URL;
+  const webhook =
+    context.env.DISCORD_RATING_WEBHOOK_URL ||
+    context.env.NEXT_PUBLIC_DISCORD_RATING_WEBHOOK_URL;
   if (!webhook) {
     return json({ ok: false, error: "not_configured" }, 503);
   }
@@ -49,6 +52,7 @@ export async function onRequestPost(context: {
   });
 
   if (!discord.ok) {
+    console.error("rating upstream", discord.status);
     return json({ ok: false, error: "upstream" }, 502);
   }
 

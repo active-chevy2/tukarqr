@@ -52,7 +52,7 @@ Consent Mode defaults to analytics storage granted and ad storage denied. There 
 | `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Build env, optional | Overrides the default GA4 ID |
 | `DISCORD_RATING_WEBHOOK_URL` | Runtime secret for Pages Functions | Discord webhook used only by `/api/rating` |
 
-Do not set `NEXT_PUBLIC_DISCORD_RATING_WEBHOOK_URL`. That name would ship the webhook in the client bundle.
+The function also falls back to `NEXT_PUBLIC_DISCORD_RATING_WEBHOOK_URL` if set in Pages settings. Client code never references it, so it is not bundled; prefer renaming it to `DISCORD_RATING_WEBHOOK_URL`.
 
 After adding or changing `NEXT_PUBLIC_*`, redeploy. The rating function is `functions/api/rating.ts`. It accepts POST JSON `{ "value": 1-5, "feedback"?: string }` from `https://tukarqr.my` (and localhost). Feedback is capped at 500 characters.
 
