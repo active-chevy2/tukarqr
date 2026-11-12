@@ -4,6 +4,7 @@ export const ms: Messages = {
   // nav
   "nav.footer.ariaLabel": "Footer",
   "nav.footer.about": "Tentang",
+  "nav.footer.list": "Senarai",
   "nav.footer.mcp": "MCP Server",
   "nav.language.ariaLabel": "Pilih bahasa",
   "nav.language.ms": "B. Melayu",
@@ -335,10 +336,12 @@ export const ms: Messages = {
     "Senarai bank dan institusi kewangan yang menyokong DuitNow QR di Malaysia.",
   "list.table.no": "No",
   "list.table.name": "Nama",
+  "list.onboarding": "* Pendaftaran masih berjalan",
   "list.showAll": "Tunjuk Semua ({n})",
   "list.showLess": "Tunjuk Kurang",
-  "list.source.label": "Sumber:",
   "list.source.link": "Paynet",
+  "list.source.updated": "Dikemas kini oleh Tukar QR pada 12 Nov 2026.",
+  "list.source.more": "Untuk maklumat lanjut dan terkini, sila lawati",
 
   // errors
   "errors.decode.tooLargeSize":

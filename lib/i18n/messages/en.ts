@@ -4,6 +4,7 @@ export const en: Messages = {
   // nav
   "nav.footer.ariaLabel": "Footer",
   "nav.footer.about": "About",
+  "nav.footer.list": "List",
   "nav.footer.mcp": "MCP Server",
   "nav.language.ariaLabel": "Choose language",
   "nav.language.ms": "B. Melayu",
@@ -331,10 +332,12 @@ export const en: Messages = {
     "Banks and financial institutions that support DuitNow QR in Malaysia.",
   "list.table.no": "No",
   "list.table.name": "Name",
+  "list.onboarding": "* Onboarding in progress",
   "list.showAll": "Show All ({n})",
   "list.showLess": "Show Less",
-  "list.source.label": "Source:",
   "list.source.link": "Paynet",
+  "list.source.updated": "Updated by Tukar QR on 12 Nov 2026.",
+  "list.source.more": "For more information and the latest, please visit",
 
   // errors
   "errors.decode.tooLargeSize":

@@ -34,13 +34,12 @@ export const metadata: Metadata = {
   },
 };
 
-interface Acquirer {
-  no: number;
-  name: string;
-}
-
 export default function ListPage() {
-  const acquirers = acquirersData.acquirers as Acquirer[];
+  const acquirers = acquirersData.acquirers.map(({ no, name, onboarding }) => ({
+    no,
+    name,
+    onboarding,
+  }));
   const sourceUrl = acquirersData.source;
 
   return <ListContent acquirers={acquirers} sourceUrl={sourceUrl} />;

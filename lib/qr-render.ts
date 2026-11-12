@@ -8,6 +8,7 @@ import {
   exportZipBlob,
   type ExportResult,
 } from "@/lib/share-qr";
+import { cardLabelMaxWidth, placeCardLabels } from "@tukarqr/qr-core";
 
 export function formatShortFilename(merchantName: string | null): string {
   const now = new Date();
@@ -36,7 +37,6 @@ const MALAYSIA_QR_BORDER_BOTTOM = 12;
 const MALAYSIA_QR_BAR_HEIGHT = 100;
 const MALAYSIA_QR_RADIUS = 16;
 const HOLDER_NAME_FONT = "600 44px system-ui, -apple-system, sans-serif";
-const MAX_BANK_NAME_LENGTH = 45;
 const WATERMARK_TEXT = "tukarqr.my"; // brand domain; keep literal
 const PLAIN_CANVAS_SIZE = 1000;
 const PLAIN_PADDING_RATIO = 0.08;
@@ -86,9 +86,7 @@ export function renderSvgToPng(
 ): Promise<string> {
   const layout = options?.layout ?? "duitnow";
   const merchantName = options?.merchantName ?? null;
-  const bankName = options?.bankName
-    ? options.bankName.slice(0, MAX_BANK_NAME_LENGTH)
-    : null;
+  const bankName = options?.bankName ?? null;
   const includeText = options?.includeText ?? false;
   const ratio = options?.ratio ?? "1:1";
   const watermark = options?.watermark ?? false;
@@ -124,12 +122,6 @@ export function renderSvgToPng(
       const borderBottom = MALAYSIA_QR_BORDER_BOTTOM;
       const barHeight = MALAYSIA_QR_BAR_HEIGHT;
       const radius = MALAYSIA_QR_RADIUS;
-      const holderNameArea =
-        includeText && (merchantName || bankName)
-          ? merchantName && bankName
-            ? 110
-            : 80
-          : 0;
 
       const totalWidth = ratio === "1:1" ? 1000 : 900;
       const totalHeight =
@@ -144,6 +136,15 @@ export function renderSvgToPng(
 
       const innerWidth = frameSize - borderLeft - borderRight;
       const whiteHeight = frameSize - borderTop - barHeight;
+      const labels =
+        includeText && (merchantName || bankName)
+          ? placeCardLabels(
+              merchantName,
+              bankName,
+              cardLabelMaxWidth(innerWidth),
+            )
+          : { area: 0, lines: [] };
+      const holderNameArea = labels.area;
 
       const qrSize = Math.min(
         innerWidth - INNER_PADDING_TOP_BOTTOM * 2,
@@ -205,32 +206,15 @@ export function renderSvgToPng(
 
       ctx.drawImage(img, qrX, qrY, qrSize, qrSize);
 
-      if (includeText && (merchantName || bankName)) {
+      if (labels.lines.length > 0) {
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillStyle = "#000000";
-        ctx.font = HOLDER_NAME_FONT;
         const holderCenterX = frameX + borderLeft + innerWidth / 2;
         const holderTop = qrY + qrSize;
-        if (merchantName && bankName) {
-          ctx.fillText(merchantName, holderCenterX, holderTop + 22);
-          ctx.fillText(
-            bankName,
-            holderCenterX,
-            holderTop + 44 + 12 + 22
-          );
-        } else if (merchantName) {
-          ctx.fillText(
-            merchantName,
-            holderCenterX,
-            holderTop + holderNameArea / 2
-          );
-        } else if (bankName) {
-          ctx.fillText(
-            bankName,
-            holderCenterX,
-            holderTop + holderNameArea / 2
-          );
+        for (const line of labels.lines) {
+          ctx.font = `600 ${line.fontSize}px system-ui, -apple-system, sans-serif`;
+          ctx.fillText(line.text, holderCenterX, holderTop + line.y);
         }
       }
 

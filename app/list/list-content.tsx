@@ -7,6 +7,7 @@ import { useT } from "@/lib/i18n";
 interface Acquirer {
   no: number;
   name: string;
+  onboarding?: boolean;
 }
 
 interface ListContentProps {
@@ -30,7 +31,7 @@ export function ListContent({ acquirers, sourceUrl }: ListContentProps) {
         <AcquirersTable acquirers={acquirers} />
 
         <p className="text-[13px] leading-[1.6] text-muted-foreground">
-          {t("list.source.label")}{" "}
+          {t("list.source.updated")} {t("list.source.more")}{" "}
           <a
             href={sourceUrl}
             target="_blank"
@@ -38,7 +39,7 @@ export function ListContent({ acquirers, sourceUrl }: ListContentProps) {
             className="text-foreground underline underline-offset-4 hover:text-primary"
           >
             {t("list.source.link")}
-          </a>
+          </a>.
         </p>
       </div>
     </main>

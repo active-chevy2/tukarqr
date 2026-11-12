@@ -18,6 +18,7 @@ const INITIAL_VISIBLE = 20;
 interface Acquirer {
   no: number;
   name: string;
+  onboarding?: boolean;
 }
 
 interface AcquirersTableProps {
@@ -28,6 +29,7 @@ export function AcquirersTable({ acquirers }: AcquirersTableProps) {
   const t = useT();
   const [expanded, setExpanded] = useState(false);
   const hasMore = acquirers.length > INITIAL_VISIBLE;
+  const hasOnboarding = acquirers.some((acquirer) => acquirer.onboarding);
   const visible = expanded
     ? acquirers
     : acquirers.slice(0, INITIAL_VISIBLE);
@@ -49,13 +51,18 @@ export function AcquirersTable({ acquirers }: AcquirersTableProps) {
                   {acquirer.no}
                 </TableCell>
                 <TableCell className="whitespace-normal">
-                  {acquirer.name}
+                  {acquirer.onboarding ? `* ${acquirer.name}` : acquirer.name}
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </div>
+      {hasOnboarding && (
+        <p className="text-[13px] leading-[1.6] text-muted-foreground">
+          {t("list.onboarding")}
+        </p>
+      )}
       {hasMore && (
         <div className="flex justify-center">
           <Button

@@ -218,14 +218,14 @@ export function QrResultCardSingle({
               ) : null}
             </div>
             {(merchantName || bankName) && (
-              <div className="flex w-full min-w-0 flex-col gap-0.5 items-center">
+              <div className="flex w-full max-w-[480px] min-w-0 flex-col gap-0.5 items-center">
                 {merchantName && (
-                  <p className="w-full min-w-0 break-words text-[18px] font-semibold text-foreground text-center">
+                  <p className="w-full max-w-[480px] min-w-0 text-balance break-words text-[18px] font-semibold leading-snug text-foreground text-center">
                     {merchantName}
                   </p>
                 )}
                 {bankName && (
-                  <p className="w-full min-w-0 break-words text-[18px] font-semibold text-foreground text-center">
+                  <p className="w-full max-w-[480px] min-w-0 text-balance break-words text-[18px] font-semibold leading-snug text-foreground text-center">
                     {bankName}
                   </p>
                 )}

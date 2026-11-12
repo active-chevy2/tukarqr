@@ -190,7 +190,7 @@ export function QrResultItem({
                 {truncatedName}
               </p>
               {bankName && (
-                <p className="truncate text-[12px] sm:text-[13px] md:text-sm text-muted-foreground">
+                <p className="line-clamp-2 whitespace-normal break-words text-[12px] leading-snug sm:text-[13px] md:text-sm text-muted-foreground">
                   {bankName}
                 </p>
               )}

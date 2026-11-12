@@ -26,6 +26,7 @@ export {
   type QrRaster,
 } from "./decode-raster";
 export { buildQrModuleSvg } from "./qr-modules";
+export { cardLabelMaxWidth, placeCardLabels } from "./card-label";
 export { buildExportSvg } from "./export-frame";
 export {
   DEFAULT_EXPORT_OPTIONS,

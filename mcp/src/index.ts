@@ -46,7 +46,7 @@ const exportSettingsFields = {
     .optional()
     .describe("Image size: square 1:1 (default) or portrait 3:4."),
   merchantName: z.string().max(80).optional(),
-  bankName: z.string().max(45).optional(),
+  bankName: z.string().max(90).optional(),
 };
 
 function createServer() {

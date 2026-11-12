@@ -3,285 +3,75 @@
   "nota": "Senarai bank dan institusi kewangan yang menyokong DuitNow QR di Malaysia.",
   "source": "https://docs.paynet.my/docs/duitnow-qr/merchant-presented-qr/qr-data-object#acquirer-id-id-01",
   "acquirers": [
-    {
-      "no": 1,
-      "name": "AEON Bank (M) Berhad"
-    },
-    {
-      "no": 2,
-      "name": "Affin Bank Berhad"
-    },
-    {
-      "no": 3,
-      "name": "Al Rajhi Banking & Investment Corporation (Malaysia) Berhad"
-    },
-    {
-      "no": 4,
-      "name": "Alliance Bank Malaysia Berhad"
-    },
-    {
-      "no": 5,
-      "name": "AmBank Malaysia Berhad"
-    },
-    {
-      "no": 6,
-      "name": "Ampersand Pay Sdn Bhd"
-    },
-    {
-      "no": 7,
-      "name": "Axiata Digital eCode Sdn Bhd"
-    },
-    {
-      "no": 8,
-      "name": "Bank Islam Malaysia Berhad"
-    },
-    {
-      "no": 9,
-      "name": "Bank Kerjasama Rakyat Malaysia Berhad"
-    },
-    {
-      "no": 10,
-      "name": "Bank Muamalat Malaysia Berhad"
-    },
-    {
-      "no": 11,
-      "name": "Bank of America (M) Berhad"
-    },
-    {
-      "no": 12,
-      "name": "Bank of China (M) Berhad"
-    },
-    {
-      "no": 13,
-      "name": "Bank Pertanian Malaysia Berhad (Agrobank)"
-    },
-    {
-      "no": 14,
-      "name": "Bank Simpanan Nasional"
-    },
-    {
-      "no": 15,
-      "name": "Beez Fintech Sdn Bhd"
-    },
-    {
-      "no": 16,
-      "name": "BigPay Malaysia Sdn Bhd"
-    },
-    {
-      "no": 17,
-      "name": "BNP Paribas Malaysia Berhad"
-    },
-    {
-      "no": 18,
-      "name": "Boost Bank Berhad"
-    },
-    {
-      "no": 19,
-      "name": "Boost Connect Sdn Bhd"
-    },
-    {
-      "no": 20,
-      "name": "China Construction Bank (Malaysia) Berhad"
-    },
-    {
-      "no": 21,
-      "name": "CIMB Bank Berhad"
-    },
-    {
-      "no": 22,
-      "name": "Citibank Berhad"
-    },
-    {
-      "no": 23,
-      "name": "Curlec Sdn Bhd"
-    },
-    {
-      "no": 24,
-      "name": "Deutsche Bank (M) Berhad"
-    },
-    {
-      "no": 25,
-      "name": "Fass Payment Solutions Sdn Bhd"
-    },
-    {
-      "no": 26,
-      "name": "Fave Asia Technologies Sdn Bhd"
-    },
-    {
-      "no": 27,
-      "name": "Finexus Cards Sdn Bhd"
-    },
-    {
-      "no": 28,
-      "name": "GHL Cardpay Sdn Bhd"
-    },
-    {
-      "no": 29,
-      "name": "Global Payments Asia-Pacific Limited"
-    },
-    {
-      "no": 30,
-      "name": "GPay Network (M) Sdn Bhd"
-    },
-    {
-      "no": 31,
-      "name": "GX Bank Berhad"
-    },
-    {
-      "no": 32,
-      "name": "Hong Leong Bank Berhad"
-    },
-    {
-      "no": 33,
-      "name": "HSBC Bank Berhad"
-    },
-    {
-      "no": 34,
-      "name": "Industrial and Commercial Bank of China (M) Berhad"
-    },
-    {
-      "no": 35,
-      "name": "Instapay Technologies Sdn Bhd"
-    },
-    {
-      "no": 36,
-      "name": "iPay88 (M) Sdn Bhd"
-    },
-    {
-      "no": 37,
-      "name": "JP Morgan Chase Bank Berhad"
-    },
-    {
-      "no": 38,
-      "name": "KAF Investment Bank Berhad"
-    },
-    {
-      "no": 39,
-      "name": "Kiplepay Sdn Bhd"
-    },
-    {
-      "no": 40,
-      "name": "Koperasi Co-opbank Pertama Malaysia Berhad"
-    },
-    {
-      "no": 41,
-      "name": "Kuwait Finance House (Malaysia) Berhad"
-    },
-    {
-      "no": 42,
-      "name": "Malayan Banking Berhad"
-    },
-    {
-      "no": 43,
-      "name": "ManagePay Systems Sdn Bhd"
-    },
-    {
-      "no": 44,
-      "name": "MBSB Bank Berhad"
-    },
-    {
-      "no": 45,
-      "name": "Merchantrade Asia Sdn Bhd"
-    },
-    {
-      "no": 46,
-      "name": "Mizuho Bank (Malaysia) Berhad"
-    },
-    {
-      "no": 47,
-      "name": "MobilityOne Sdn Bhd"
-    },
-    {
-      "no": 48,
-      "name": "Mobiedge E-commerce Sdn Bhd"
-    },
-    {
-      "no": 49,
-      "name": "MRuncit Commerce Sdn Bhd"
-    },
-    {
-      "no": 50,
-      "name": "MUFG Bank (Malaysia) Berhad"
-    },
-    {
-      "no": 51,
-      "name": "OCBC Bank Berhad"
-    },
-    {
-      "no": 52,
-      "name": "Paydibs Sdn Bhd"
-    },
-    {
-      "no": 53,
-      "name": "Payex PLT"
-    },
-    {
-      "no": 54,
-      "name": "Public Bank Berhad"
-    },
-    {
-      "no": 55,
-      "name": "Razer Merchant Services Sdn Bhd"
-    },
-    {
-      "no": 56,
-      "name": "Revenue Solution Sdn Bhd"
-    },
-    {
-      "no": 57,
-      "name": "RHB Bank Berhad"
-    },
-    {
-      "no": 58,
-      "name": "Setel Ventures Sdn Bhd"
-    },
-    {
-      "no": 59,
-      "name": "ShopeePay Malaysia Sdn Bhd"
-    },
-    {
-      "no": 60,
-      "name": "SiliconNet Technologies Sdn Bhd"
-    },
-    {
-      "no": 61,
-      "name": "Standard Chartered Bank Malaysia Berhad"
-    },
-    {
-      "no": 62,
-      "name": "Stripe Payments Singapore Pte Ltd"
-    },
-    {
-      "no": 63,
-      "name": "Sumitomo Mitsui Banking Corporation (M) Berhad"
-    },
-    {
-      "no": 64,
-      "name": "TNG Digital Sdn Bhd"
-    },
-    {
-      "no": 65,
-      "name": "UniPin (M) Sdn Bhd"
-    },
-    {
-      "no": 66,
-      "name": "United Overseas Bank (Malaysia) Berhad"
-    },
-    {
-      "no": 67,
-      "name": "Wannapay Sdn Bhd"
-    },
-    {
-      "no": 68,
-      "name": "YTL Digital Bank Berhad"
-    },
-    {
-      "no": 69,
-      "name": "2C2P System Sdn Bhd"
-    },
-    {
-      "no": 70,
-      "name": "JomPAY"
-    }
+    { "no": 1, "name": "Affin Bank Berhad", "acquirerId": "501664", "bic": "PHBMMYKL" },
+    { "no": 2, "name": "Alliance Bank Malaysia Berhad", "acquirerId": "504374", "bic": "MFBBMYKL" },
+    { "no": 3, "name": "Al Rajhi Banking & Investment Corporation (Malaysia) Berhad", "acquirerId": "432134", "bic": "RJHIMYKL" },
+    { "no": 4, "name": "Ambank Malaysia Berhad", "acquirerId": "564169", "bic": "ARBKMYKL" },
+    { "no": 5, "name": "Bank Islam Malaysia Berhad", "acquirerId": "603346", "bic": "BIMBMYKL" },
+    { "no": 6, "name": "Bank Kerjasama Rakyat Malaysia Berhad", "acquirerId": "589267", "bic": "BKRMMYKL" },
+    { "no": 7, "name": "Bank Muamalat Malaysia Berhad", "acquirerId": "564167", "bic": "BMMBMYKL" },
+    { "no": 8, "name": "Bank of America (M) Berhad", "acquirerId": "629188", "bic": "BOFAMY2X" },
+    { "no": 9, "name": "Bank of China (M) Berhad", "acquirerId": "629152", "bic": "BKCHMYKL" },
+    { "no": 10, "name": "Bank Pertanian Malaysia Berhad (Agrobank)", "acquirerId": "589373", "bic": "AGOBMYKL" },
+    { "no": 11, "name": "Bank Simpanan Nasional", "acquirerId": "420709", "bic": "BSNAMYK1" },
+    { "no": 12, "name": "MUFG Bank (Malaysia) Berhad", "acquirerId": "629196", "bic": "BOTKMYKX" },
+    { "no": 13, "name": "BNP Paribas Malaysia Berhad", "acquirerId": "629204", "bic": "BNPAMYKL" },
+    { "no": 14, "name": "China Construction Bank (Malaysia) Berhad", "acquirerId": "629261", "bic": "PCBCMYKL" },
+    { "no": 15, "name": "CIMB Bank Berhad", "acquirerId": "501854", "bic": "CIBBMYKL" },
+    { "no": 16, "name": "Citibank Berhad", "acquirerId": "589170", "bic": "CITIMYKL" },
+    { "no": 17, "name": "Deutsche Bank (Malaysia) Berhad", "acquirerId": "629246", "bic": "DEUTMYKL" },
+    { "no": 18, "name": "Hong Leong Bank Berhad", "acquirerId": "588830", "bic": "HLBBMYKL" },
+    { "no": 19, "name": "HSBC Bank Malaysia Berhad", "acquirerId": "589836", "bic": "HBMBMYKL" },
+    { "no": 20, "name": "Industrial and Commercial Bank of China (M) Berhad", "acquirerId": "629253", "bic": "ICBKMYKL" },
+    { "no": 21, "name": "JP Morgan Chase Bank Berhad", "acquirerId": "629212", "bic": "CHASMYKX" },
+    { "no": 22, "name": "Kuwait Finance House (Malaysia) Berhad", "acquirerId": "639406", "bic": "KFHOMYKL" },
+    { "no": 23, "name": "Maybank Berhad", "acquirerId": "588734", "bic": "MBBEMYKL" },
+    { "no": 24, "name": "MBSB Bank Berhad", "acquirerId": "432310", "bic": "AFBQMYKL" },
+    { "no": 25, "name": "Mizuho Bank (Malaysia) Berhad", "acquirerId": "629220", "bic": "MHCBMYKA" },
+    { "no": 26, "name": "OCBC Bank Berhad", "acquirerId": "504324", "bic": "OCBCMYKL" },
+    { "no": 27, "name": "Public Bank Berhad", "acquirerId": "564162", "bic": "PBBEMYKL" },
+    { "no": 28, "name": "RHB Bank Berhad", "acquirerId": "564160", "bic": "RHBBMYKL" },
+    { "no": 29, "name": "Standard Chartered Bank Malaysia Berhad", "acquirerId": "539981", "bic": "SCBLMYKX" },
+    { "no": 30, "name": "Sumitomo Mitsui Banking Corporation (M) Berhad", "acquirerId": "629238", "bic": "SMBCMYKL" },
+    { "no": 31, "name": "United Overseas Bank Berhad", "acquirerId": "519469", "bic": "UOVBMYKL" },
+    { "no": 32, "name": "AEON Bank (M) Berhad", "acquirerId": "629295", "bic": "ACDBMYK2" },
+    { "no": 33, "name": "Boost Bank Berhad", "acquirerId": "629303", "bic": "BOBEMYK2" },
+    { "no": 34, "name": "GX Bank Berhad (GXBank)", "acquirerId": "629279", "bic": "GXSPMYKL" },
+    { "no": 35, "name": "KAF Digital Bank Berhad", "acquirerId": "629311", "bic": "KAFBMYK2" },
+    { "no": 36, "name": "YTL Digital Bank Berhad (Ryt Bank)", "acquirerId": "629287", "bic": "SCCHMYKL" },
+    { "no": 37, "name": "JomPAY", "acquirerId": "898989", "bic": null },
+    { "no": 38, "name": "Bangkok Bank Berhad", "acquirerId": "890335", "bic": "BKKBMYKL", "onboarding": true },
+    { "no": 39, "name": "BigPay Malaysia Sdn Bhd", "acquirerId": "890012", "bic": "BGPYMYNB" },
+    { "no": 40, "name": "Axiata Digital eCode Sdn Bhd", "acquirerId": "890061", "bic": "BOSTMYNB" },
+    { "no": 41, "name": "Beez Fintech Sdn Bhd", "acquirerId": "890236", "bic": "BEEZMYNB" },
+    { "no": 42, "name": "Razorpay Curlec Sdn Bhd", "acquirerId": "890160", "bic": "CRLCMYNB" },
+    { "no": 43, "name": "Fass Payment Solutions Sdn Bhd", "acquirerId": "890145", "bic": "FSPYMYNB" },
+    { "no": 44, "name": "Fave Asia Technologies Sdn Bhd", "acquirerId": "890020", "bic": "FAVEMYNB" },
+    { "no": 45, "name": "Finexus Cards Sdn Bhd", "acquirerId": "890038", "bic": "FNXSMYNB" },
+    { "no": 46, "name": "GHL Cardpay Sdn Bhd", "acquirerId": "890103", "bic": "GHLCMYNB" },
+    { "no": 47, "name": "GPay Network (M) Sdn Bhd", "acquirerId": "890046", "bic": "GRABMYNB" },
+    { "no": 48, "name": "iPay88 (M) Sdn Bhd", "acquirerId": "890079", "bic": "IPAYMYNB" },
+    { "no": 49, "name": "Koperasi Co-opbank Pertama Malaysia Berhad", "acquirerId": "890228", "bic": "KCPMMYK1" },
+    { "no": 50, "name": "Merchantrade Asia Sdn Bhd", "acquirerId": "890111", "bic": "MASBMYNB" },
+    { "no": 51, "name": "MobilityOne Sdn Bhd", "acquirerId": "890210", "bic": "MBLOMYNB" },
+    { "no": 52, "name": "Payex PLT", "acquirerId": "890194", "bic": "PAYXMYNB" },
+    { "no": 53, "name": "Razer Merchant Services Sdn Bhd", "acquirerId": "890087", "bic": "RZMSMYNB" },
+    { "no": 54, "name": "Revenue Solution Sdn Bhd", "acquirerId": "890095", "bic": "RSSBMYNB" },
+    { "no": 55, "name": "Setel Pay Sdn Bhd (formerly known as Setel Ventures Sdn Bhd)", "acquirerId": "890129", "bic": "SVSBMYNB" },
+    { "no": 56, "name": "ShopeePay Malaysia Sdn. Bhd.", "acquirerId": "890004", "bic": "ARPYMYNB" },
+    { "no": 57, "name": "SiliconNet Technologies Sdn Bhd", "acquirerId": "890202", "bic": "SPAYMYNB" },
+    { "no": 58, "name": "TNG Digital Sdn Bhd", "acquirerId": "890053", "bic": "TNGDMYNB" },
+    { "no": 59, "name": "UniPin (M) Sdn Bhd", "acquirerId": "890251", "bic": "UNPNMYNB" },
+    { "no": 60, "name": "Wannapay Sdn Bhd", "acquirerId": "890319", "bic": "WANNMYNB" },
+    { "no": 61, "name": "2C2P System Sdn Bhd", "acquirerId": "890285", "bic": "C2P2MYNB", "onboarding": true },
+    { "no": 62, "name": "Ampersand Pay Sdn Bhd", "acquirerId": "890293", "bic": "APSBMYNB", "onboarding": true },
+    { "no": 63, "name": "Boost Connect Sdn Bhd", "acquirerId": "890244", "bic": "BCNTMYNB", "onboarding": true },
+    { "no": 64, "name": "Instapay Technologies Sdn. Bhd", "acquirerId": "890178", "bic": "INSTMYNB" },
+    { "no": 65, "name": "ManagePay Systems Sdn Bhd", "acquirerId": "890301", "bic": "MPAYMYNB" },
+    { "no": 66, "name": "MRuncit Commerce Sdn Bhd", "acquirerId": "890327", "bic": "MRCTMYNB" },
+    { "no": 67, "name": "Paydibs Sdn Bhd", "acquirerId": "890269", "bic": "PDBSMYNB" },
+    { "no": 68, "name": "Wise Payments Malaysia Sdn Bhd", "acquirerId": "890350", "bic": "WISEMYNB" },
+    { "no": 69, "name": "Cardbiz Payment Services Sdn Bhd", "acquirerId": "890368", "bic": "CBSBMYNB" },
+    { "no": 70, "name": "Gkash Sdn Bhd", "acquirerId": "890376", "bic": "GKSBMYNB" }
   ]
 }

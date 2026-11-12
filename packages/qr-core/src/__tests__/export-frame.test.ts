@@ -33,6 +33,19 @@ describe("buildExportSvg", () => {
     expect(height).toBe(1200);
   });
 
+  it("wraps a long bank name onto a second line", () => {
+    const bankName =
+      "Setel Pay Sdn Bhd (formerly known as Setel Ventures Sdn Bhd)";
+    const { svg } = buildExportSvg(SAMPLE, {
+      layout: "duitnow",
+      merchantName: "KEDAI RUNCIT",
+      bankName,
+    });
+    expect(svg).toContain("Setel Pay Sdn Bhd (formerly known as");
+    expect(svg).toContain("Setel Ventures Sdn Bhd)");
+    expect(svg).not.toContain(bankName);
+  });
+
   it("plain layout omits national label", () => {
     const { svg, width } = buildExportSvg(SAMPLE, { layout: "plain" });
     expect(svg).not.toContain(NATIONAL_QR_LABEL);

@@ -6,6 +6,7 @@ import {
   type QrExportOptions,
 } from "./export-types";
 import { parseEmvCoBankName, parseEmvCoMerchantName } from "./emvco";
+import { cardLabelMaxWidth, placeCardLabels } from "./card-label";
 import { buildQrModuleSvg } from "./qr-modules";
 
 const INNER_PADDING_TOP_BOTTOM = 24;
@@ -14,7 +15,6 @@ const MALAYSIA_QR_BORDER_TOP = 20;
 const MALAYSIA_QR_BORDER_LEFT_RIGHT = 20;
 const MALAYSIA_QR_BAR_HEIGHT = 100;
 const MALAYSIA_QR_RADIUS = 16;
-const MAX_BANK_NAME_LENGTH = 45;
 const PLAIN_CANVAS_SIZE = 1000;
 const PLAIN_PADDING_RATIO = 0.08;
 
@@ -56,8 +56,6 @@ export function buildExportSvg(
 
   if (!(partial?.showBankName ?? true)) {
     options.bankName = null;
-  } else if (options.bankName) {
-    options.bankName = options.bankName.slice(0, MAX_BANK_NAME_LENGTH);
   }
 
   const { svg: moduleSvg, cells } = buildQrModuleSvg(payload, {
@@ -82,13 +80,6 @@ export function buildExportSvg(
 
   const merchantName = options.merchantName;
   const bankName = options.bankName;
-  const includeText = Boolean(merchantName || bankName);
-  const holderNameArea =
-    includeText && (merchantName || bankName)
-      ? merchantName && bankName
-        ? 110
-        : 80
-      : 0;
 
   const totalWidth = options.ratio === "1:1" ? 1000 : 900;
   const totalHeight =
@@ -106,6 +97,12 @@ export function buildExportSvg(
   const radius = MALAYSIA_QR_RADIUS;
   const innerWidth = frameSize - borderLeft * 2;
   const whiteHeight = frameSize - borderTop - barHeight;
+  const labels = placeCardLabels(
+    merchantName,
+    bankName,
+    cardLabelMaxWidth(innerWidth),
+  );
+  const holderNameArea = labels.area;
   const qrSize = Math.min(
     innerWidth - INNER_PADDING_TOP_BOTTOM * 2,
     whiteHeight - INNER_PADDING_TOP_BOTTOM * 2 - holderNameArea
@@ -121,20 +118,10 @@ export function buildExportSvg(
       ? `<rect width="${totalWidth}" height="${totalHeight}" fill="#ffffff"/>`
       : "";
 
-  const texts: string[] = [];
-  if (includeText) {
-    if (merchantName && bankName) {
-      texts.push(
-        `<text x="${holderCenterX}" y="${holderTop + 22}" text-anchor="middle" dominant-baseline="middle" font-family="${SYSTEM_FONT_STACK}" font-size="44" font-weight="600" fill="#000000">${escapeXml(merchantName)}</text>`,
-        `<text x="${holderCenterX}" y="${holderTop + 78}" text-anchor="middle" dominant-baseline="middle" font-family="${SYSTEM_FONT_STACK}" font-size="44" font-weight="600" fill="#000000">${escapeXml(bankName)}</text>`
-      );
-    } else {
-      const label = merchantName || bankName || "";
-      texts.push(
-        `<text x="${holderCenterX}" y="${holderTop + holderNameArea / 2}" text-anchor="middle" dominant-baseline="middle" font-family="${SYSTEM_FONT_STACK}" font-size="44" font-weight="600" fill="#000000">${escapeXml(label)}</text>`
-      );
-    }
-  }
+  const texts: string[] = labels.lines.map(
+    (line) =>
+      `<text x="${holderCenterX}" y="${holderTop + line.y}" text-anchor="middle" dominant-baseline="middle" font-family="${SYSTEM_FONT_STACK}" font-size="${line.fontSize}" font-weight="600" fill="#000000">${escapeXml(line.text)}</text>`,
+  );
 
   const nationalY = frameY + frameSize - barHeight / 2;
   texts.push(

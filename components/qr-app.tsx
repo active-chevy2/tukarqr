@@ -1092,6 +1092,9 @@ export function QrApp() {
             <Button variant="ghost" asChild>
               <Link href="/tentang">{t("nav.footer.about")}</Link>
             </Button>
+            <Button variant="ghost" asChild>
+              <Link href="/list">{t("nav.footer.list")}</Link>
+            </Button>
           </nav>
           <LanguageSwitcher />
         </footer>
