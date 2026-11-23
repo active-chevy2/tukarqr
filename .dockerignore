@@ -1,0 +1,16 @@
+.git
+.gitignore
+.next
+out
+build
+coverage
+node_modules
+npm-debug.log*
+.env*
+!.env.example
+.wrangler
+.mf
+.vercel
+.DS_Store
+mcp/*
+!mcp/package.json
