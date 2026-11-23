@@ -1,19 +1,9 @@
 {
-  "$schema": "https://openship.io/app.schema.json",
-  "available": true,
-  "id": "tukarqr",
-  "name": "TukarQR",
-  "description": "Privacy-first QR code generator, scanner, and converter web application.",
-  "kind": "template",
-  "logo": "tukarqr",
-  "category": "other",
-  "tags": ["qr-code", "utilities", "privacy", "nextjs"],
   "framework": "docker-compose",
   "services": [
     {
       "name": "tukarqr",
-      "image": "ghcr.io/shahrulestar/tukarqr:latest",
-      "exposedPort": 3000,
+      "exposedPort": "3000",
       "exposed": true,
       "env": {
         "NODE_ENV": "production",
@@ -24,42 +14,5 @@
       },
       "secretEnv": ["DISCORD_RATING_WEBHOOK_URL"]
     }
-  ],
-  "configFields": [
-    {
-      "service": "tukarqr",
-      "key": "DISCORD_RATING_WEBHOOK_URL",
-      "label": "Discord Rating Webhook URL (optional)",
-      "secret": true
-    }
-  ],
-  "connection": {
-    "title": "Open TukarQR",
-    "description": "Access your self-hosted TukarQR web application.",
-    "guide": {
-      "defaultMode": "public"
-    },
-    "outputs": [
-      {
-        "id": "url",
-        "label": "Open TukarQR",
-        "source": "publicUrl:tukarqr",
-        "kind": "url",
-        "recommended": true
-      }
-    ]
-  },
-  "verified": true,
-  "marketplace": {
-    "features": [
-      {
-        "title": "Client-Side QR Tools",
-        "description": "Generate, customise, scan, and convert QR codes directly in the browser."
-      },
-      {
-        "title": "Self-Hosted Standalone Server",
-        "description": "Runs independently on OpenShip PaaS via Node.js with zero external cloud platform dependencies."
-      }
-    ]
-  }
+  ]
 }
